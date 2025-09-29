@@ -7,9 +7,8 @@ const GlobalSearchService = require('../services/search/GlobalSearchService');
 const SearchHelperService = require('../services/search/SearchHelperService');
 const { successResponse, errorResponse } = require('../utils/response');
 
-/**
- * 1. GET /api/search/products - Tìm kiếm sản phẩm nâng cao
- */
+
+//1. GET /api/search/products - Tìm kiếm sản phẩm nâng cao
 const searchProducts = async (req, res) => {
     try {
         const result = await ProductSearchService.searchProducts(req.query);

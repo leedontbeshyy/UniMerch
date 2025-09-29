@@ -6,11 +6,7 @@ const ReviewSearchService = require('./ReviewSearchService');
  * Service xử lý tìm kiếm toàn cục - tìm kiếm trên nhiều domain
  */
 class GlobalSearchService {
-    /**
-     * Tìm kiếm toàn cục
-     * @param {Object} searchParams - Tham số tìm kiếm
-     * @returns {Object} - Kết quả tìm kiếm từ nhiều nguồn
-     */
+
     static async globalSearch(searchParams) {
         const {
             q,

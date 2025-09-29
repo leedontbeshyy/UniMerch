@@ -2,11 +2,6 @@ const StatsService = require('../services/statsService');
 const { successResponse, errorResponse } = require('../utils/response');
 
 /**
- * StatsController - Xử lý các endpoints Admin Dashboard Stats
- * Theo nguyên tắc SRP: Controller chỉ xử lý request/response, gọi service
- */
-
-/**
  * 1. GET /api/admin/stats/dashboard - Thống kê tổng quan Dashboard
  */
 const getDashboardStats = async (req, res) => {

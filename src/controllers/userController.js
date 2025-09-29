@@ -5,15 +5,13 @@ const { successResponse, errorResponse } = require('../utils/response');
 const getProfile = async (req, res) => {
     try {
         const userId = req.user.id;
-        
-        // Controller chỉ gọi service
+
         const userProfile = await UserService.getUserProfile(userId);
 
         return successResponse(res, userProfile, 'Lấy thông tin profile thành công');
     } catch (error) {
         console.error('Get profile error:', error);
-        
-        // Xử lý lỗi từ service
+
         if (error.message === 'Không tìm thấy thông tin người dùng') {
             return errorResponse(res, error.message, 404);
         }
@@ -26,15 +24,13 @@ const getProfile = async (req, res) => {
 const updateProfile = async (req, res) => {
     try {
         const userId = req.user.id;
-        
-        // Controller chỉ gọi service
+
         const userProfile = await UserService.updateUserProfile(userId, req.body);
 
         return successResponse(res, userProfile, 'Cập nhật profile thành công');
     } catch (error) {
         console.error('Update profile error:', error);
         
-        // Xử lý lỗi từ service
         if (error.message === 'Không thể cập nhật thông tin người dùng') {
             return errorResponse(res, error.message, 404);
         }
@@ -48,14 +44,12 @@ const changePassword = async (req, res) => {
     try {
         const userId = req.user.id;
         
-        // Controller chỉ gọi service
         const result = await UserService.changePassword(userId, req.body);
 
         return successResponse(res, null, result.message);
     } catch (error) {
         console.error('Change password error:', error);
-        
-        // Xử lý lỗi từ service
+
         if (error.message === 'Mật khẩu mới và xác nhận mật khẩu không khớp' ||
             error.message === 'Mật khẩu hiện tại không đúng') {
             return errorResponse(res, error.message, 400);
@@ -76,7 +70,6 @@ const changePassword = async (req, res) => {
 // 4. GET /api/users (Admin only) - Lấy danh sách tất cả users
 const getAllUsers = async (req, res) => {
     try {
-        // Controller chỉ gọi service
         const result = await UserService.getAllUsers(req.query);
 
         return successResponse(res, result, 'Lấy danh sách users thành công');
@@ -96,16 +89,14 @@ const getAllUsers = async (req, res) => {
 const getUserById = async (req, res) => {
     try {
         const { id } = req.params;
-        
-        // Controller chỉ gọi service
+
         const userId = UserService.validateUserId(id);
         const userProfile = await UserService.getUserById(userId);
 
         return successResponse(res, userProfile, 'Lấy thông tin user thành công');
     } catch (error) {
         console.error('Get user by ID error:', error);
-        
-        // Xử lý lỗi từ service
+
         if (error.message === 'ID người dùng không hợp lệ') {
             return errorResponse(res, error.message, 400);
         }
@@ -122,16 +113,14 @@ const getUserById = async (req, res) => {
 const updateUserById = async (req, res) => {
     try {
         const { id } = req.params;
-        
-        // Controller chỉ gọi service
+
         const userId = UserService.validateUserId(id);
         const userProfile = await UserService.updateUserById(userId, req.body);
 
         return successResponse(res, userProfile, 'Cập nhật thông tin user thành công');
     } catch (error) {
         console.error('Update user by ID error:', error);
-        
-        // Xử lý lỗi từ service
+
         if (error.message === 'ID người dùng không hợp lệ' ||
             error.message === 'Role không hợp lệ. Chỉ được phép: user, seller, admin') {
             return errorResponse(res, error.message, 400);
@@ -150,16 +139,14 @@ const deleteUserById = async (req, res) => {
     try {
         const { id } = req.params;
         const currentUserId = req.user.id;
-        
-        // Controller chỉ gọi service
+
         const userId = UserService.validateUserId(id);
         const result = await UserService.deleteUser(userId, currentUserId);
 
         return successResponse(res, result, 'Xóa user thành công');
     } catch (error) {
         console.error('Delete user by ID error:', error);
-        
-        // Xử lý lỗi từ service
+
         if (error.message === 'ID người dùng không hợp lệ' ||
             error.message === 'Không thể xóa chính tài khoản của bạn' ||
             error.message.includes('Không thể xóa')) {
@@ -177,7 +164,6 @@ const deleteUserById = async (req, res) => {
 // 8. GET /api/users/stats (Admin only) - Lấy thống kê users
 const getUserStats = async (req, res) => {
     try {
-        // Controller chỉ gọi service
         const stats = await UserService.getUserStats();
 
         return successResponse(res, stats, 'Lấy thống kê users thành công');
